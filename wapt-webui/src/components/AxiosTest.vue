@@ -29,22 +29,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import axios from 'axios'
-
-const axiosconfig = {
-  // method: 'get',
-  // mode: 'no-cors',
-  baseURL: 'https://wapt.baraise.info/api/',
-  timeout: 30000,
-  crossDomain: true
-  // auth: {
-  // },
-  // withCredentials: false
-}
-Vue.prototype.$axios = axios.create(axiosconfig)
-Vue.prototype.$axios.defaults.headers.common.Authorization = 'Basic YWRtaW46d2FwdHBhc3N3b3Jk'
-// Vue.prototype.$axios.defaults.baseURL = 'https://wapt.lan/api/'
+import { HTTP } from '@/utils/http'
 
 export default {
   name: 'AxiosTest',
@@ -57,7 +42,7 @@ export default {
   },
   mounted () {
     // do something after mounting vue instance
-    this.$axios.get('v1/hosts')
+    HTTP.get('v1/hosts')
       .then(response => {
         // JSON responses are automatically parsed.
         this.posts = response
@@ -66,9 +51,6 @@ export default {
         this.errors.push(e)
       })
   }
-  // Fetches posts when the component is created.
-  //   axios.defaults.headers.common['Authorization'] = 'Basic YWRtaW46MWFwdHBvdXJXaW5kb3dz';
-
 }
 
 </script>
