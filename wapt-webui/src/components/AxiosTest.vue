@@ -35,7 +35,7 @@ import axios from 'axios'
 const axiosconfig = {
   // method: 'get',
   // mode: 'no-cors',
-  baseURL: 'https://wapt.lan/api/',
+  baseURL: 'https://wapt.baraise.info/api/',
   timeout: 30000,
   crossDomain: true
   // auth: {
@@ -43,7 +43,7 @@ const axiosconfig = {
   // withCredentials: false
 }
 Vue.prototype.$axios = axios.create(axiosconfig)
-Vue.prototype.$axios.defaults.headers.common.Authorization = 'Basic xxxxxxxxxxxxx'
+Vue.prototype.$axios.defaults.headers.common.Authorization = 'Basic YWRtaW46d2FwdHBhc3N3b3Jk'
 // Vue.prototype.$axios.defaults.baseURL = 'https://wapt.lan/api/'
 
 export default {
