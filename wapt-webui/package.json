@@ -15,8 +15,13 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+<<<<<<< HEAD
     "bootstrap-vue": "^2.0.0-rc.9",
+=======
+    "bootstrap-vue": "^2.0.0-rc.10",
+>>>>>>> aguay-dev
     "vue": "^2.5.2",
+    "vue-axios": "^2.1.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
