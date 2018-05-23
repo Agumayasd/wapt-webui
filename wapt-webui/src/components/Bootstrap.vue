@@ -59,7 +59,7 @@
       <template slot="computer_name" slot-scope="row">{{row.value}}</template>
       <template slot="connected_users" slot-scope="row">{{row.value[0]}}</template>
       <template slot="host_status" slot-scope="row">{{row.value}}</template>
-      <template slot="last_update_status" slot-scope="row">{{row.value['date'] | humanDate }}</template>
+      <template slot="last_update_status" slot-scope="row">{{row.value['date'] | localeDate }}</template>
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
         <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
@@ -150,7 +150,7 @@ export default {
     }
   },
   filters: {
-    humanDate (value) {
+    localeDate (value) {
       var date = new Date(value)
       return date.toLocaleString()
     }
