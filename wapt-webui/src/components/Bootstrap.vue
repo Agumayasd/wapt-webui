@@ -122,7 +122,20 @@ export default {
     HTTP.get('v1/hosts')
       .then(response => {
         // JSON responses are automatically parsed.
-        this.items = response.data.result
+        let hosts = response.data.result
+        this.items = hosts.map(
+          function (host) {
+            if (host.host_status === 'ERROR') {
+              Object.defineProperty(host, '_rowVariant', {value: 'danger'})
+              return host
+            } else if (host.host_status === 'TO-UPGRADE') {
+              Object.defineProperty(host, '_rowVariant', {value: 'warning'})
+              return host
+            } else {
+              return host
+            }
+          }
+        )
       })
   },
   computed: {
