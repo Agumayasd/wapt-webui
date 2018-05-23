@@ -56,8 +56,10 @@
              :sort-direction="sortDirection"
              @filtered="onFiltered"
     >
-      <template slot="computer_name" slot-scope="row">{{row.value.first}} {{row.value.last}}</template>
-      <template slot="isActive" slot-scope="row">{{row.value?'Yes :)':'No :('}}</template>
+      <template slot="computer_name" slot-scope="row">{{row.value}}</template>
+      <template slot="connected_users" slot-scope="row">{{row.value[0]}}</template>
+      <template slot="host_status" slot-scope="row">{{row.value}}</template>
+      <template slot="last_update_status" slot-scope="row">{{row.value['date'] | humanDate }}</template>
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
         <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
@@ -99,15 +101,15 @@ export default {
       items: [],
       fields: [
         { key: 'computer_name', label: 'Computer name', sortable: true, sortDirection: 'desc' },
-        { key: 'user', label: 'User', sortable: true, sortDirection: 'desc' },
-        { key: 'status', label: 'Status' },
-        { key: 'last_update', label: 'Last Update' },
+        { key: 'connected_users', label: 'User', sortable: true, sortDirection: 'desc' },
+        { key: 'host_status', label: 'Status', sortable: true, sortDirection: 'desc' },
+        { key: 'last_update_status', label: 'Last Update' },
         { key: 'actions', label: 'Actions' }
       ],
       currentPage: 1,
-      perPage: 5,
+      perPage: 15,
       totalRows: 0,
-      pageOptions: [ 5, 10, 15 ],
+      pageOptions: [ 15, 30, 45 ],
       sortBy: null,
       sortDesc: false,
       sortDirection: 'asc',
@@ -145,6 +147,12 @@ export default {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length
       this.currentPage = 1
+    }
+  },
+  filters: {
+    humanDate (value) {
+      var date = new Date(value)
+      return date.toLocaleString()
     }
   }
 }
