@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import AxiosTest from '@/components/AxiosTest'
+import Aguay from '@/components/Aguay'
 import Bootstrap from '@/components/Bootstrap'
 
 Vue.use(Router)
@@ -9,9 +9,9 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/test',
-      name: 'AxiosTest',
-      component: AxiosTest
+      path: '/aguay',
+      name: 'Aguay Part Dev',
+      component: Aguay
     },
     {
       path: '/bootstrap',
