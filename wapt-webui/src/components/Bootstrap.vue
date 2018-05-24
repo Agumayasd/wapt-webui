@@ -45,6 +45,8 @@
 
     <!-- Main table element -->
     <b-table show-empty
+             striped
+             hover
              stacked="md"
              :items="items"
              :fields="fields"
@@ -58,7 +60,10 @@
     >
       <template slot="computer_name" slot-scope="row">{{row.value}}</template>
       <template slot="connected_users" slot-scope="row">{{row.value[0]}}</template>
-      <template slot="host_status" slot-scope="row">{{row.value}}</template>
+      <!--<template slot="host_status" slot-scope="row">{{row.value}}</template>-->
+      <template slot="host_status" slot-scope="row">
+        <b-badge v-bind:variant="badgeHostStatus(row.value)">{{row.value}}</b-badge>
+      </template>
       <template slot="last_update_status" slot-scope="row">{{row.value['date'] | localeDate }}</template>
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
@@ -102,7 +107,7 @@ export default {
       fields: [
         { key: 'computer_name', label: 'Computer name', sortable: true, sortDirection: 'desc' },
         { key: 'connected_users', label: 'User', sortable: true, sortDirection: 'desc' },
-        { key: 'host_status', label: 'Status', sortable: true, sortDirection: 'desc' },
+        { key: 'host_status', label: 'Status', sortable: true, sortDirection: 'desc', 'class': 'text-center' },
         { key: 'last_update_status', label: 'Last Update' },
         { key: 'actions', label: 'Actions' }
       ],
@@ -122,20 +127,7 @@ export default {
     HTTP.get('v1/hosts')
       .then(response => {
         // JSON responses are automatically parsed.
-        let hosts = response.data.result
-        this.items = hosts.map(
-          function (host) {
-            if (host.host_status === 'ERROR') {
-              Object.defineProperty(host, '_rowVariant', {value: 'danger'})
-              return host
-            } else if (host.host_status === 'TO-UPGRADE') {
-              Object.defineProperty(host, '_rowVariant', {value: 'warning'})
-              return host
-            } else {
-              return host
-            }
-          }
-        )
+        this.items = response.data.result
       })
   },
   computed: {
@@ -160,6 +152,18 @@ export default {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length
       this.currentPage = 1
+    },
+    badgeHostStatus (hostStatus) {
+      switch (hostStatus) {
+        case 'ERROR':
+          return 'danger'
+          break
+        case 'TO-UPGRADE':
+          return 'warning'
+          break
+        default:
+          return 'success'
+      }
     }
   },
   filters: {
