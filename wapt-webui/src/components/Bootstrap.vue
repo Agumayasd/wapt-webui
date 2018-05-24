@@ -157,10 +157,8 @@ export default {
       switch (hostStatus) {
         case 'ERROR':
           return 'danger'
-          break
         case 'TO-UPGRADE':
           return 'warning'
-          break
         default:
           return 'success'
       }
