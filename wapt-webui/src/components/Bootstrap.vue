@@ -60,9 +60,15 @@
     >
       <template slot="computer_name" slot-scope="row">{{row.value}}</template>
       <template slot="connected_users" slot-scope="row">{{row.value[0]}}</template>
-      <!--<template slot="host_status" slot-scope="row">{{row.value}}</template>-->
       <template slot="host_status" slot-scope="row">
-        <b-badge v-bind:variant="badgeHostStatus(row.value)">{{row.value}}</b-badge>
+        <b-badge href="#"
+                 v-b-tooltip.hover
+                 title="Show details"
+                 v-b-modal.modalStatusDetails
+                 v-bind:variant="badgeHostStatus(row.value)"
+        >
+          {{row.value}}
+        </b-badge>
       </template>
       <template slot="last_update_status" slot-scope="row">{{row.value['date'] | localeDate }}</template>
       <template slot="actions" slot-scope="row">
