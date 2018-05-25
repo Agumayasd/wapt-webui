@@ -64,7 +64,7 @@
         <b-badge href="#"
                  v-b-tooltip.hover
                  title="Show details"
-                 v-b-modal.modalStatusDetails
+                 @click.stop="statusDetails(row.item, $event.target)"
                  v-bind:variant="badgeHostStatus(row.value)"
         >
           {{row.value}}
@@ -100,11 +100,19 @@
       <pre>{{ modalInfo.content }}</pre>
     </b-modal>
 
+    <!-- Modal Component -->
+    <b-modal id="modalStatusDetails" title="Status details" size="lg" :hide-footer="true">
+      <ModalStatusDetails
+        :host="host"
+      />
+    </b-modal>
+
   </b-container>
 </template>
 
 <script>
 import { HTTP } from '@/utils/http'
+import ModalStatusDetails from '@/components/modals/ModalStatusDetails'
 
 export default {
   data () {
@@ -125,8 +133,12 @@ export default {
       sortDesc: false,
       sortDirection: 'asc',
       filter: null,
-      modalInfo: { title: '', content: '' }
+      modalInfo: { title: '', content: '' },
+      host: {}
     }
+  },
+  components: {
+    ModalStatusDetails
   },
   mounted () {
     // do something after mounting vue instance
@@ -149,6 +161,10 @@ export default {
       this.modalInfo.title = `Row index: ${index}`
       this.modalInfo.content = JSON.stringify(item, null, 2)
       this.$root.$emit('bv::show::modal', 'modalInfo', button)
+    },
+    statusDetails (item, badge) {
+      this.host = item
+      this.$root.$emit('bv::show::modal', 'modalStatusDetails', badge)
     },
     resetModal () {
       this.modalInfo.title = ''
