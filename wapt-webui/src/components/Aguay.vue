@@ -1,15 +1,28 @@
 <template>
 <div>
-  <br>
-<h3> {{ msg }} </h3>
+  <p>{{ count }}</p>
+  <p>{{ msg }}</p>
+  <p>
+    <button @click="increment">+</button>
+    <button @click="PrintThis">Show me</button>
+
+  </p>
 </div>
 </template>
 
 <script>
+
 export default {
-  data () {
-    return {
-      msg: 'Testing Data'
+  computed: {
+    count () { return this.$store.state.Dashboard.count },
+    msg () { return this.$store.state.Dashboard.msg }
+  },
+  methods: {
+    increment () {
+      this.$store.commit('increment')
+    },
+    PrintThis () {
+      this.$store.commit('ShowTexte')
     }
   }
 }
