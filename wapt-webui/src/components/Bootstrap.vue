@@ -101,6 +101,7 @@
     </b-modal>
 
     <!-- Modal Component -->
+    <!-- TODO: reset modal -->
     <b-modal id="modalStatusDetails" title="Status details" size="lg" :hide-footer="true">
       <ModalStatusDetails
         :host="host"
