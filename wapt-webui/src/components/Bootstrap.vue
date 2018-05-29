@@ -102,9 +102,13 @@
 
     <!-- Modal Component -->
     <!-- TODO: reset modal -->
-    <b-modal id="modalStatusDetails" title="Status details" size="lg" :hide-footer="true">
+    <b-modal id="modalStatusDetails" size="lg" :hide-footer="true">
+      <template slot="modal-title">
+        Status details of <b>{{ this.host.computer_name }}</b>
+      </template>
       <ModalStatusDetails
-        :host="host"
+        v-if="host.last_update_status"
+        :status="host.last_update_status"
       />
     </b-modal>
 

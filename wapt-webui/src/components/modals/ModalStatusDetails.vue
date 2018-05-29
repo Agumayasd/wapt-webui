@@ -3,7 +3,7 @@
   <b-tabs card>
     <b-tab active>
       <template slot="title">
-        Errors <b-badge>{{ host.last_update_status.errors.length }}</b-badge>
+        Errors <b-badge>{{ status.errors.length }}</b-badge>
       </template>
       <template>
         <b-table striped hover :items="this.errors"></b-table>
@@ -11,7 +11,7 @@
     </b-tab>
     <b-tab>
       <template slot="title">
-        Upgrades <b-badge>{{ host.last_update_status.upgrades.length }}</b-badge>
+        Upgrades <b-badge>{{ status.upgrades.length }}</b-badge>
       </template>
       <template>
         <b-table striped hover :items="this.upgrades"></b-table>
@@ -34,7 +34,7 @@ import waptUtils from '@/utils/wapt'
 
 export default {
   props: {
-    host: {
+    status: {
       type: Object,
       required: true
     }
@@ -43,7 +43,7 @@ export default {
     // This function return an array of objects that contain every packages
     // needed to be upgraded and their version
     upgrades: function () {
-      let elements = this.host.last_update_status.upgrades
+      let elements = this.status.upgrades
       let upgrades = []
 
       elements.forEach(function (upgrade) {
@@ -58,7 +58,7 @@ export default {
     // This function return an array of objects that contain every packages
     // and their status on computer (remove, upgrade...)
     pending: function () {
-      let obj = this.host.last_update_status.pending
+      let obj = this.status.pending
       let pending = []
 
       // For each status keys get package
@@ -83,7 +83,7 @@ export default {
     // This function return an array of objects that contain every packages
     // in error status with their version and additionnal error message
     errors: function () {
-      let elements = this.host.last_update_status.errors
+      let elements = this.status.errors
       let errors = []
 
       elements.forEach(function (error) {
