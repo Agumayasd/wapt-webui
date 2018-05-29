@@ -7,17 +7,17 @@ const state = {
 
 const actions = {
 
-    LOAD_WAPT_JSON: function ({ commit }) {
-      HTTP.get('v1/hosts').then((response) => {
-        commit('STORE_WAPT', { list: response.data })
-      }, (err) => {
-        console.log(err)
-      })
+  LOAD_WAPT_JSON: function ({ commit }) {
+    HTTP.get('v1/hosts').then((response) => {
+      commit('STORE_WAPT', { list: response.data })
+    }, (err) => {
+      console.log(err)
+    })
   }
 }
 
 const mutations = {
-  STORE_WAPT : (state, {list} ) => {
+  STORE_WAPT: (state, {list}) => {
     state.waptState = list
   }
 }
