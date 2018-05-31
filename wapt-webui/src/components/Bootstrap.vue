@@ -102,7 +102,7 @@
 
     <!-- Modal Component -->
     <!-- TODO: reset modal -->
-    <b-modal id="modalStatusDetails" size="lg" :hide-footer="true">
+    <b-modal id="modalStatusDetails" @hide="resetModalStatusDetails" size="lg" :hide-footer="true">
       <template slot="modal-title">
         Status details of <b>{{ this.host.computer_name }}</b>
       </template>
@@ -174,6 +174,9 @@ export default {
     resetModal () {
       this.modalInfo.title = ''
       this.modalInfo.content = ''
+    },
+    resetModalStatusDetails () {
+      this.host = {}
     },
     onFiltered (filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
