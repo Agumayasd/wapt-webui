@@ -108,7 +108,7 @@
       </template>
       <ModalStatusDetails
         v-if="host.last_update_status"
-        :status="host.last_update_status"
+        :status="{last_update_status: host.last_update_status, status: host.host_status}"
       />
     </b-modal>
 
