@@ -5,6 +5,7 @@ import BootstrapVue from 'bootstrap-vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import navbar from './components/Navbar'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -18,4 +19,12 @@ new Vue({
   store,
   components: { App },
   template: '<App/>'
+})
+
+new Vue({
+  el: '#navbar',
+  router,
+  store,
+  components: { navbar },
+  template: '<navbar/>'
 })
