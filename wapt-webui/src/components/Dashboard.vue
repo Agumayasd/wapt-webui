@@ -3,8 +3,8 @@
   <p>{{ count }}</p>
   <p>{{ msg }}</p>
   <p>
-    <button @click="increment">+</button>
-    <button @click="PrintThis">Show me</button>
+    <button v-on:click="increment">+</button>
+    <button v-on:click="PrintThis">Show me</button>
 
   </p>
   <hr>
@@ -17,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="host in hosts.result" :key="host.id">
+    <tr v-for="host in hosts.result" :key="host.uuid">
       <td>{{ host.uuid }}</td>
       <td>{{ host.computer_fqdn }}</td>
       <td>{{ host.os_name }}</td>
