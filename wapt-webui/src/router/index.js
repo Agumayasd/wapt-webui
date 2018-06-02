@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
-import Bootstrap from '@/components/Bootstrap'
+import Hosts from '@/components/Hosts'
 
 Vue.use(Router)
 
@@ -15,8 +15,8 @@ export default new Router({
     },
     {
       path: '/bootstrap',
-      name: 'Bootstrap',
-      component: Bootstrap
+      name: 'Hosts',
+      component: Hosts
     }
   ]
 })

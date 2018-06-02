@@ -43,7 +43,7 @@
       </b-col>
     </b-row>
 
-    <!-- Main table element -->
+    <!-- Hosts table element -->
     <b-table show-empty
              striped
              hover
@@ -59,21 +59,29 @@
              @filtered="onFiltered"
     >
       <template slot="computer_name" slot-scope="row">{{row.value}}</template>
-      <template slot="connected_users" slot-scope="row">{{row.value[0]}}</template>
+      <template slot="connected_users" slot-scope="row">
+          {{row.value[0]}}
+      </template>
       <template slot="host_status" slot-scope="row">
         <b-badge href="#"
                  v-b-tooltip.hover
                  title="Show details"
-                 @click.stop="statusDetails(row.item, $event.target)"
+                 @click.stop="showModalStatusDetails(row.item, $event.target)"
                  v-bind:variant="badgeHostStatus(row.value)"
         >
           {{row.value}}
         </b-badge>
       </template>
-      <template slot="last_update_status" slot-scope="row">{{row.value['date'] | localeDate }}</template>
+      <template slot="last_update_status" slot-scope="row">
+        {{row.value['date'] | toLocaleDate }}
+      </template>
       <template slot="actions" slot-scope="row">
-        <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
+        <!-- We use @click.stop here to prevent a
+            'row-clicked'event from also happening -->
+        <b-button size="sm"
+          @click.stop="info(row.item, row.index, $event.target)"
+          class="mr-1"
+        >
           Info modal
         </b-button>
         <b-button size="sm" @click.stop="row.toggleDetails">
@@ -83,7 +91,9 @@
       <template slot="row-details" slot-scope="row">
         <b-card>
           <ul>
-            <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value}}</li>
+            <li v-for="(value, key) in row.item" :key="key">
+              {{ key }}: {{ value}}
+            </li>
           </ul>
         </b-card>
       </template>
@@ -91,7 +101,12 @@
 
     <b-row>
       <b-col md="6" class="my-1">
-        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
+        <b-pagination
+          :total-rows="totalRows"
+          :per-page="perPage"
+          v-model="currentPage"
+          class="my-0"
+        />
       </b-col>
     </b-row>
 
@@ -100,15 +115,19 @@
       <pre>{{ modalInfo.content }}</pre>
     </b-modal>
 
-    <!-- Modal Component -->
-    <!-- TODO: reset modal -->
-    <b-modal id="modalStatusDetails" @hide="resetModalStatusDetails" size="lg" :hide-footer="true">
+    <!-- Status details modal -->
+    <b-modal id="modalStatusDetails"
+      @hide="resetModalStatusDetails"
+      size="lg"
+      :hide-footer="true"
+    >
       <template slot="modal-title">
         Status details of <b>{{ this.host.computer_name }}</b>
       </template>
       <ModalStatusDetails
         v-if="host.last_update_status"
-        :status="{last_update_status: host.last_update_status, status: host.host_status}"
+        :status="{last_update_status: host.last_update_status,
+                  status: host.host_status}"
       />
     </b-modal>
 
@@ -116,6 +135,10 @@
 </template>
 
 <script>
+/**
+* This component display host inventory (table) with
+* their name, user, status and last update date
+**/
 import { HTTP } from '@/utils/http'
 import ModalStatusDetails from '@/components/modals/ModalStatusDetails'
 
@@ -124,9 +147,19 @@ export default {
     return {
       items: [],
       fields: [
-        { key: 'computer_name', label: 'Computer name', sortable: true, sortDirection: 'desc' },
-        { key: 'connected_users', label: 'User', sortable: true, sortDirection: 'desc' },
-        { key: 'host_status', label: 'Status', sortable: true, sortDirection: 'desc', 'class': 'text-center' },
+        { key: 'computer_name',
+          label: 'Computer name',
+          sortable: true,
+          sortDirection: 'desc' },
+        { key: 'connected_users',
+          label: 'User',
+          sortable: true,
+          sortDirection: 'desc' },
+        { key: 'host_status',
+          label: 'Status',
+          sortable: true,
+          sortDirection: 'desc',
+          'class': 'text-center' },
         { key: 'last_update_status', label: 'Last Update' },
         { key: 'actions', label: 'Actions' }
       ],
@@ -162,29 +195,32 @@ export default {
     }
   },
   methods: {
+    showModalStatusDetails (item, badge) {
+      this.host = item
+      this.$root.$emit('bv::show::modal', 'modalStatusDetails', badge)
+    },
+    resetModalStatusDetails () {
+      this.host = {}
+    },
     info (item, index, button) {
       this.modalInfo.title = `Row index: ${index}`
       this.modalInfo.content = JSON.stringify(item, null, 2)
       this.$root.$emit('bv::show::modal', 'modalInfo', button)
     },
-    statusDetails (item, badge) {
-      this.host = item
-      this.$root.$emit('bv::show::modal', 'modalStatusDetails', badge)
-    },
     resetModal () {
       this.modalInfo.title = ''
       this.modalInfo.content = ''
     },
-    resetModalStatusDetails () {
-      this.host = {}
-    },
     onFiltered (filteredItems) {
-      // Trigger pagination to update the number of buttons/pages due to filtering
+      // Trigger pagination to update the number of
+      // buttons/pages due to filtering
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    badgeHostStatus (hostStatus) {
-      switch (hostStatus) {
+    // Show different badge variant according
+    // to host status
+    badgeHostStatus (status) {
+      switch (status) {
         case 'ERROR':
           return 'danger'
         case 'TO-UPGRADE':
@@ -195,9 +231,10 @@ export default {
     }
   },
   filters: {
-    localeDate (value) {
-      var date = new Date(value)
-      return date.toLocaleString()
+    // Format ISO date to locale date
+    toLocaleDate (date) {
+      var isoDate = new Date(date)
+      return isoDate.toLocaleString()
     }
   }
 }
