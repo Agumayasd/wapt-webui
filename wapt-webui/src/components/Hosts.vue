@@ -73,7 +73,7 @@
         </b-badge>
       </template>
       <template slot="last_update_status" slot-scope="row">
-        {{row.value['date'] | toLocaleDate }}
+        {{new Date(row.value['date']).toLocaleString()}}
       </template>
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a
@@ -228,13 +228,6 @@ export default {
         default:
           return 'success'
       }
-    }
-  },
-  filters: {
-    // Format ISO date to locale date
-    toLocaleDate (date) {
-      var isoDate = new Date(date)
-      return isoDate.toLocaleString()
     }
   }
 }
