@@ -8,38 +8,43 @@
 
   </p>
   <hr>
-  <table class="table table-striped">
-  <thead>
-    <tr>
-      <th>UUID</th>
-      <th>Name</th>
-      <th>OS</th>
-    </tr>
-  </thead>
   <tbody>
-    <tr v-for="host in hosts.result" :key="host.uuid">
+    <!-- <tr v-for="host in hosts.result" :key="host.uuid">
       <td>{{ host.uuid }}</td>
       <td>{{ host.computer_fqdn }}</td>
       <td>{{ host.os_name }}</td>
-    </tr>
+    </tr> -->
+    <div> {{data}} </div>
+    <div> {{hostsOkStateCount}} </div>
+    <div> {{hostsErrorStateCount}} </div>
+    <div> {{hostsWarnStateCount}} </div>
+    <pie-chart :data="data" :colors="['#4e7300', '#ffa600', '#b51414']" width="800px" height="500px" :discrete="true"></pie-chart>
+
   </tbody>
-</table>
 </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
-  name: 'HelloWorld',
+  name: 'Dashobard',
   mounted () {
     this.$store.dispatch('LOAD_WAPT_JSON')
   },
+
   computed: {
-    hosts () { return this.$store.state.Wapt.waptState },
+    ...mapGetters([
+      'hostsOkStateCount',
+      'hostsErrorStateCount',
+      'hostsWarnStateCount'
+    ]),
+    data () { return [['ok', this.$store.getters.hostsOkStateCount], ['Warn', this.$store.getters.hostsWarnStateCount], ['Error', this.$store.getters.hostsErrorStateCount]] },
     count () { return this.$store.state.Dashboard.count },
     msg () { return this.$store.state.Dashboard.msg }
   },
   methods: {
+
     increment () {
       this.$store.commit('increment')
     },
