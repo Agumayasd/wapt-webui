@@ -55,5 +55,18 @@ describe('Hosts', () => {
     expect(text).toEqual('2018-5-18 15:32:42')
   })
 
+  it('should render only computer55 when search computer55', () => {
     const wrapper = factory()
+    const input = wrapper.find('input')      
+    input.element.value = 'computer55'
+    console.log(wrapper.html())
+
+    const text = getTdTableText(wrapper.findAll('td'), 2)
+    expect(text).toEqual('2018-5-18 15:32:42')
+  })
+
+  // TODO:
+  //   * test search filter
+  //   * test sort by status
+  //   * test per page
 })
