@@ -1,9 +1,13 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Hosts from '@/components/Hosts'
+import BootstrapVue from 'bootstrap-vue'
 
+const localVue = createLocalVue()
+localVue.use(BootstrapVue)
 
 const factory = (values = {}) => {
   return mount(Hosts, {
+    localVue,
     data: {
       items: [
         {
