@@ -27,13 +27,33 @@ const factory = (values = {}) => {
   })
 }
 
+const getTdTableText = (tdArray, id) => {
+  const td = tdArray.at(id)
+  const div = td.find('div')
+  return div.text()
+}
 
 describe('Hosts', () => {
   it('should render table data with computer name', () => {
     const wrapper = factory()
 
-    const wrapper = factory()
-    const wrapper = factory()
+    const text = getTdTableText(wrapper.findAll('td'), 0)
+    expect(text).toEqual('computer55')
   })
+
+  it('should render table data with host status', () => {
+    const wrapper = factory()
+
+    const text = getTdTableText(wrapper.findAll('td'), 1)
+    expect(text).toEqual('ERROR')
+  })
+
+  it('should render table data with last update status in local time format', () => {
+    const wrapper = factory()
+
+    const text = getTdTableText(wrapper.findAll('td'), 2)
+    expect(text).toEqual('2018-5-18 15:32:42')
+  })
+
     const wrapper = factory()
 })
