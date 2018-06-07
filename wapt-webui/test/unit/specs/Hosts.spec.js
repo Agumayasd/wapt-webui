@@ -25,8 +25,7 @@ const factory = (values = {}) => {
           host_status: "TO-UPGRADE",
           last_update_status: {date: "2018-05-17T09:45:12.138000"}
         }
-      ],
-      filter: null      
+      ]
     }
   })
 }
@@ -59,10 +58,17 @@ describe('Hosts', () => {
     expect(text).toEqual('2018-5-18 15:32:42')
   })
 
-  it('should render only computer55 when search computer55', () => {
+  it('should render only computer55 when search computer55', (done) => {
     const wrapper = factory()
-    const input = wrapper.find('input')      
+    // wrapper.setData({ filter: 'computer55' })
+    const input = wrapper.find('input')
     input.element.value = 'computer55'
+    input.trigger = 'input'
+    // wrapper.vm.$nextTick(() => {
+    //   console.log(wrapper.html())
+    //   done()
+    // })
+    // input.element.value = 'computer55'
     console.log(wrapper.html())
 
     const text = getTdTableText(wrapper.findAll('td'), 2)
