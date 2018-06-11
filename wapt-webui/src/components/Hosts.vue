@@ -59,9 +59,6 @@
              @filtered="onFiltered"
     >
       <template slot="computer_name" slot-scope="row">{{row.value}}</template>
-      <template slot="connected_users" slot-scope="row">
-          {{row.value[0]}}
-      </template>
       <template slot="host_status" slot-scope="row">
         <b-badge href="#"
                  v-b-tooltip.hover
@@ -73,7 +70,7 @@
         </b-badge>
       </template>
       <template slot="last_update_status" slot-scope="row">
-        {{row.value['date'] | toLocaleDate }}
+        {{new Date(row.value['date']).toLocaleString()}}
       </template>
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a
@@ -137,7 +134,7 @@
 <script>
 /**
 * This component display host inventory (table) with
-* their name, user, status and last update date
+* their name, status and last update date
 **/
 import { HTTP } from '@/utils/http'
 import ModalStatusDetails from '@/components/modals/ModalStatusDetails'
@@ -149,10 +146,6 @@ export default {
       fields: [
         { key: 'computer_name',
           label: 'Computer name',
-          sortable: true,
-          sortDirection: 'desc' },
-        { key: 'connected_users',
-          label: 'User',
           sortable: true,
           sortDirection: 'desc' },
         { key: 'host_status',
@@ -228,13 +221,6 @@ export default {
         default:
           return 'success'
       }
-    }
-  },
-  filters: {
-    // Format ISO date to locale date
-    toLocaleDate (date) {
-      var isoDate = new Date(date)
-      return isoDate.toLocaleString()
     }
   }
 }
