@@ -60,15 +60,8 @@ describe('Hosts', () => {
 
   it('should render only computer55 when search computer55', (done) => {
     const wrapper = factory()
-    // wrapper.setData({ filter: 'computer55' })
-    const input = wrapper.find('input')
-    input.element.value = 'computer55'
-    input.trigger = 'input'
-    // wrapper.vm.$nextTick(() => {
-    //   console.log(wrapper.html())
-    //   done()
-    // })
-    // input.element.value = 'computer55'
+    const test = wrapper.find({ name: 'bFormInput'})      
+    test.setProps({ value:'computer55' })      
     console.log(wrapper.html())
 
     const text = getTdTableText(wrapper.findAll('td'), 2)
