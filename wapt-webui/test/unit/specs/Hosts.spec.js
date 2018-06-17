@@ -8,24 +8,26 @@ localVue.use(BootstrapVue)
 const factory = (values = {}) => {
   return mount(Hosts, {
     localVue,
-    data: {
-      items: [
-        {
-          computer_name: "computer55",
-          host_status: "ERROR",
-          last_update_status: {date: "2018-05-18T13:32:42.138000"}
-        },
-        {
-          computer_name: "computer13",
-          host_status: "TO-UPGRADE",
-          last_update_status: {date: "2018-05-17T11:35:12.138000"}
-        },
-        {
-          computer_name: "computer1",
-          host_status: "TO-UPGRADE",
-          last_update_status: {date: "2018-05-17T09:45:12.138000"}
-        }
-      ]
+    data () {
+      return {
+        items: [
+          {
+            computer_name: "computer55",
+            host_status: "ERROR",
+            last_update_status: {date: "2018-05-18T13:32:42.138000"}
+          },
+          {
+            computer_name: "computer13",
+            host_status: "TO-UPGRADE",
+            last_update_status: {date: "2018-05-17T11:35:12.138000"}
+          },
+          {
+            computer_name: "computer1",
+            host_status: "TO-UPGRADE",
+            last_update_status: {date: "2018-05-17T09:45:12.138000"}
+          }
+        ]
+      }
     }
   })
 }
@@ -57,19 +59,4 @@ describe('Hosts', () => {
     const text = getTdTableText(wrapper.findAll('td'), 2)
     expect(text).toEqual('2018-5-18 15:32:42')
   })
-
-  it('should render only computer55 when search computer55', (done) => {
-    const wrapper = factory()
-    const test = wrapper.find({ name: 'bFormInput'})      
-    test.setProps({ value:'computer55' })      
-    console.log(wrapper.html())
-
-    const text = getTdTableText(wrapper.findAll('td'), 2)
-    expect(text).toEqual('2018-5-18 15:32:42')
-  })
-
-  // TODO:
-  //   * test search filter
-  //   * test sort by status
-  //   * test per page
 })
