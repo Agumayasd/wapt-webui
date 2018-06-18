@@ -5,9 +5,10 @@ import BootstrapVue from 'bootstrap-vue'
 const localVue = createLocalVue()
 localVue.use(BootstrapVue)
 
-const factory = (values = {}) => {
+const factory = (values = {}, stubs = []) => {
   return mount(Hosts, {
     localVue,
+    stubs: stubs,
     data () {
       return {
         items: [
@@ -53,10 +54,43 @@ describe('Hosts', () => {
     expect(text).toEqual('ERROR')
   })
 
-  it('should render table data with last update status in local time format', () => {
+  it('should return badge class danger if host_status is ERROR', () => {
     const wrapper = factory()
+    const bagdeClass = wrapper.vm.badgeHostStatus('ERROR')
+    expect(bagdeClass).toEqual('danger')
+  })
 
-    const text = getTdTableText(wrapper.findAll('td'), 2)
-    expect(text).toEqual('2018-5-18 15:32:42')
+  it('should return badge class warning if host_status is TO-UPGRADE', () => {
+    const wrapper = factory()
+    const bagdeClass = wrapper.vm.badgeHostStatus('TO-UPGRADE')
+    expect(bagdeClass).toEqual('warning')
+  })
+
+  it('should return badge class success if host_status is OK', () => {
+    const wrapper = factory()
+    const bagdeClass = wrapper.vm.badgeHostStatus('OK')
+    expect(bagdeClass).toEqual('success')
+  })
+
+  it('should reset host object when modal status details is closed', () => {
+    const wrapper = mount(Hosts, {
+      stubs: ['b-modal', 'b-container', 'b-table']
+    })
+    wrapper.setData({host: '{status: "OK"}'})
+    wrapper.vm.resetModalStatusDetails()
+    expect(wrapper.vm.host).toEqual({})
+  })
+
+  it('should return badge class success if host_status is OK', () => {
+    // const wrapper = mount(Hosts, {
+    //   localVue,
+    //   stubs: ['b-modal']
+    // })
+    const wrapper = factory(['b-modal'])
+    const badges = wrapper.findAll('.badge')
+    // console.log(wrapper.html())
+    badges.at(0).trigger('click')
+    // const bagdeClass = wrapper.vm.badgeHostStatus('OK')
+    // expect(bagdeClass).toEqual('success')
   })
 })
