@@ -1,14 +1,15 @@
 <template>
-  <pie-chart :data="data" :colors="['#4e7300', '#ffa600', '#b51414']" :discrete="true"></pie-chart>
+  <div class="colorbg">
+    <p class="center">Status Charts</p>
+
+  <pie-chart :data="data" :colors="['#4e7300', '#ffa600', '#b51414']" ></pie-chart>
+</div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
 export default {
-  mounted () {
-    this.$store.dispatch('LOAD_WAPT_JSON')
-  },
 
   computed: {
     ...mapGetters([
@@ -17,22 +18,16 @@ export default {
       'hostsWarnStateCount'
     ]),
     data () { return [['ok', this.hostsOkStateCount], ['Warn', this.hostsWarnStateCount], ['Error', this.hostsErrorStateCount]] }
-  },
-  methods: {
-
-    increment () {
-      this.$store.commit('increment')
-    },
-    PrintThis () {
-      this.$store.commit('ShowTexte')
-    }
   }
 }
 </script>
 
 <style scoped>
-img {
-  width: 30px;
-
+.colorbg {
+  background-color: lightgray;
+  border-radius: 10px;
+  /* width: 545px; */
+  /* height: 331px; */
 }
+
 </style>

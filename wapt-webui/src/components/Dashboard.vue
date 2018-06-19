@@ -1,11 +1,29 @@
 <template>
   <b-container>
-    <b-row>
+    <b-row class="justify-content-md-center">
       <b-col>
         <pieHostsStatus></pieHostsStatus>
       </b-col>
       <b-col>
-        <serverStatus></serverStatus>
+        <OSStatus></OSStatus>
+      </b-col>
+    </b-row>
+    <br>
+    <b-row class="justify-content-md-center">
+      <b-col>
+        <arrayWarnStatus></arrayWarnStatus>
+      </b-col>
+      <b-col>
+        <arrayOkStatus></arrayOkStatus>
+      </b-col>
+    </b-row>
+    <b-row class="justify-content-md-center">
+      <b-col>
+        <arrayErrorStatus></arrayErrorStatus>
+
+      </b-col>
+      <b-col>
+        <!-- <arrayErrorStatus></arrayErrorStatus> -->
       </b-col>
     </b-row>
   </b-container>
@@ -13,13 +31,29 @@
 
 <script>
 import pieHostsStatus from '@/components/dashboard/pieHostsStatus'
-import serverStatus from '@/components/dashboard/serverStatus'
+import arrayOkStatus from '@/components/dashboard/arrayOkStatus'
+import arrayWarnStatus from '@/components/dashboard/arrayWarnStatus'
+import arrayErrorStatus from '@/components/dashboard/arrayErrorStatus'
+import OSStatus from '@/components/dashboard/OSStatus'
 
 export default {
+
   name: 'Dashboard',
+  mounted () {
+    this.$store.dispatch('LOAD_WAPT_JSON')
+  },
   components: {
     pieHostsStatus,
-    serverStatus
+    arrayOkStatus,
+    arrayWarnStatus,
+    OSStatus,
+    arrayErrorStatus
   }
 }
 </script>
+<style>
+.container {
+  padding: 10px;
+}
+
+</style>
