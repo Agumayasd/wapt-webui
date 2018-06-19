@@ -5,7 +5,7 @@ import BootstrapVue from 'bootstrap-vue'
 const localVue = createLocalVue()
 localVue.use(BootstrapVue)
 
-const factory = (values = {}, stubs = []) => {
+const factory = (stubs = []) => {
   return mount(Hosts, {
     localVue,
     stubs: stubs,
@@ -28,6 +28,11 @@ const factory = (values = {}, stubs = []) => {
             last_update_status: {date: "2018-05-17T09:45:12.138000"}
           }
         ]
+      }
+    },
+    methods: {
+      onFiltered (filteredItems) {
+        return true
       }
     }
   })
@@ -73,24 +78,20 @@ describe('Hosts', () => {
   })
 
   it('should reset host object when modal status details is closed', () => {
-    const wrapper = mount(Hosts, {
-      stubs: ['b-modal', 'b-container', 'b-table']
-    })
+    const wrapper = factory()
     wrapper.setData({host: '{status: "OK"}'})
     wrapper.vm.resetModalStatusDetails()
     expect(wrapper.vm.host).toEqual({})
   })
 
-  it('should return badge class success if host_status is OK', () => {
-    // const wrapper = mount(Hosts, {
-    //   localVue,
-    //   stubs: ['b-modal']
-    // })
+  it('should open modal when click on badge status', () => {
+    // Stub ModalStatusDetails component
     const wrapper = factory(['b-modal'])
+
+    const showModalStatusDetailsStub = jest.fn();
+    wrapper.setMethods({ showModalStatusDetails: showModalStatusDetailsStub })
     const badges = wrapper.findAll('.badge')
-    // console.log(wrapper.html())
     badges.at(0).trigger('click')
-    // const bagdeClass = wrapper.vm.badgeHostStatus('OK')
-    // expect(bagdeClass).toEqual('success')
+    expect(showModalStatusDetailsStub.mock.calls.length).toBe(1);
   })
 })
