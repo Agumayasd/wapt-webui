@@ -59,6 +59,13 @@ describe('Hosts', () => {
     expect(text).toEqual('ERROR')
   })
 
+  it('should render table data with last update status in local time format', () => {
+    const wrapper = factory()
+
+    const text = getTdTableText(wrapper.findAll('td'), 2)
+    expect(text).toEqual('2018-5-18 15:32:42')
+  })
+
   it('should return badge class danger if host_status is ERROR', () => {
     const wrapper = factory()
     const bagdeClass = wrapper.vm.badgeHostStatus('ERROR')
