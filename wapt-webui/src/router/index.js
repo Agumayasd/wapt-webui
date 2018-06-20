@@ -14,7 +14,7 @@ export default new Router({
       component: Dashboard
     },
     {
-      path: '/bootstrap',
+      path: '/hosts',
       name: 'Hosts',
       component: Hosts
     }

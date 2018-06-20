@@ -6,7 +6,7 @@
   </b-navbar-brand>
   <b-collapse is-nav id="nav_collapse">
     <b-navbar-nav>
-      <b-nav-item to="/Bootstrap">Hosts Status</b-nav-item>
+      <b-nav-item to="/hosts">Hosts Status</b-nav-item>
     </b-navbar-nav>
   </b-collapse>
   <b-navbar-nav class="ml-auto">
