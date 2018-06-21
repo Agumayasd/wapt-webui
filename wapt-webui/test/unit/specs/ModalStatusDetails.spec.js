@@ -1,83 +1,93 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import {
+  mount,
+  createLocalVue
+} from '@vue/test-utils'
+import {
+  renderToString
+} from '@vue/server-test-utils'
 import ModalStatusDetails from '@/components/modals/ModalStatusDetails'
 import BootstrapVue from 'bootstrap-vue'
 
 const localVue = createLocalVue()
 localVue.use(BootstrapVue)
 
+const data = {
+  last_update_status: {
+    errors: [
+      "package-keepass (=2.39.1-1) : ERROR"
+    ],
+    running_tasks: [],
+    runstatus: "Done: Mise à jour de la liste des paquets disponibles\n158 paquet(s) dans le dépôt\nPaquets à mettre à jour : package-firefox-esr (=60.0.1-7),package-thunderbird (=63)",
+    upgrades: [
+      "package-thunderbird (=63)",
+      "package-firefox-esr (=60.0.1-7)"
+    ],
+    date: "2018-05-18T13:28:03.539000",
+    pending: {
+      upgrade: [
+        "package-thunderbird (=63)"
+      ],
+      install: [],
+      remove: [
+        "package-firefox (=60.0-1)"
+      ],
+      additional: [
+        "package-firefox-esr (=60.0.1-7)"
+      ]
+    }
+  },
+  status: "TO-UPGRADE"
+}
+
 const factory = () => {
   return mount(ModalStatusDetails, {
     localVue,
-    // functional: true,
     propsData: {
-      status: {
-        last_update_status: {
-          errors: [],
-          running_tasks: [],
-          runstatus: "Done: Mise à jour de la liste des paquets disponibles\n158 paquet(s) dans le dépôt\nPaquets à mettre à jour : package-firefox-esr (=60.0.1-7),package-thunderbird (=63)",
-          upgrades: [
-            "package-thunderbird (=63)",
-            "package-firefox-esr (=60.0.1-7)"
-          ],
-          date: "2018-05-18T13:28:03.539000",
-          pending: {
-            upgrade: [
-              "package-thunderbird (=63)"
-            ],
-            install: [],
-            remove: [
-              "package-firefox (=60.0-1)"
-            ],
-            additional: [
-              "package-firefox-esr (=60.0.1-7)"
-            ]
-          }
-        },
-        status: "TO-UPGRADE"
-      }
+      status: { ...data }
     }
   })
 }
 
-const getTbodyContent = (tablesArray, id) => {
-  const table = tablesArray.at(id)
-  return table.find('tbody')
+const factoryRender = () => {
+  return renderToString(ModalStatusDetails, {
+    propsData: {
+      status: { ...data }
+    }
+  })
 }
 
 describe('ModalStatusDetails', () => {
 
-  it('should render 3 tabs named Errors, Upgrades and Pending ', () => {
-    const wrapper = factory()
-    // const tabs = wrapper.findAll('b-tabs')
-    console.log(wrapper.html())
-    // const errorsContent = getTbodyContent(wrapper.findAll(
-    //   { name: 'bTable' }),
-    //   0
-    // )
-    //
-    // expect(errorsContent.html()).toBe('<tbody class=""><!----><!----><!----></tbody>')
+  it('should render Errors tab with badge equal to 1', () => {
+    const renderedString = factoryRender()
+    expect(renderedString).toContain('Errors <b-badge>1</b-badge>')
   })
 
-  it('should render an empty errors table', () => {
-    const wrapper = factory()
-    const errorsContent = getTbodyContent(wrapper.findAll(
-      { name: 'bTable' }),
-      0
-    )
-
-    expect(errorsContent.html()).toBe('<tbody class=""><!----><!----><!----></tbody>')
+  it('should render Upgrades tab with badge equal to 2', () => {
+    const renderedString = factoryRender()
+    expect(renderedString).toContain('Upgrades <b-badge>2</b-badge>')
   })
 
-  it('should render errors badge counter equal to 0', () => {
+  it('should render Pending tab with badge equal to 3', () => {
+    const renderedString = factoryRender()
+    expect(renderedString).toContain('Pending <b-badge>3</b-badge>')
+  })
+
+  it('upgrades computed should return an array of 2 packages', () => {
     const wrapper = factory()
-    const badges = wrapper.findAll({ ref: 'bTabButtonHelper' })
+    const upgrades = wrapper.vm.upgrades
+    expect(upgrades).toHaveLength(2)
+  })
 
-    // console.log(badges)
-    // const errorsContent = getTbodyContent(wrapper.findAll(
-    //   { name: 'bBadge' }),
-    //   0
-    // )
+  it('pending computed should return an array of 3 packages', () => {
+    const wrapper = factory()
+    const pending = wrapper.vm.pending
+    expect(pending).toHaveLength(3)
+  })
 
-    // expect(errorsContent.html()).toBe('<tbody class=""><!----><!----><!----></tbody>')
+  it('errors computed should return an array of 1 package', () => {
+    const wrapper = factory()
+    const errors = wrapper.vm.errors
+    expect(errors).toHaveLength(1)
   })
 })
