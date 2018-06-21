@@ -3,7 +3,7 @@
   <b-tabs card>
     <b-tab :active="status.status === 'ERROR'">
       <template slot="title">
-        Errors <b-badge>{{ status.last_update_status.errors.length }}</b-badge>
+        Errors <b-badge>{{ this.errors.length }}</b-badge>
       </template>
       <template>
         <b-table striped hover :items="this.errors"></b-table>
@@ -11,7 +11,7 @@
     </b-tab>
     <b-tab :active="status.status === 'TO-UPGRADE'">
       <template slot="title">
-        Upgrades <b-badge>{{ status.last_update_status.upgrades.length }}</b-badge>
+        Upgrades <b-badge>{{ this.upgrades.length }}</b-badge>
       </template>
       <template>
         <b-table striped hover :items="this.upgrades"></b-table>
@@ -19,7 +19,7 @@
     </b-tab>
     <b-tab :active="status.status === 'OK'">
       <template slot="title">
-        Pending <b-badge>4</b-badge>
+        Pending <b-badge>{{ this.pending.length }}</b-badge>
       </template>
       <template>
         <b-table striped hover :items="this.pending"></b-table>
