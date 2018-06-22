@@ -1,9 +1,9 @@
 <template>
   <div class="colorbg">
-    <p class="center">Os Inventory List</p>
-  <pie-chart :data="[['win7', Win7Count()], ['win8', Win8Count()], ['win10', Win10Count()]]" :colors="['#01C3CC', '#0C83D1', '#135ED4']"></pie-chart>
-
-</div>
+    <h4 class="center">Os Inventory List</h4>
+    <hr/>
+    <pie-chart style="padding:7px;" :data="[['win7', Win7Count()], ['win8', Win8Count()], ['win10', Win10Count()]]" :colors="['#01C3CC', '#0C83D1', '#135ED4']"></pie-chart>
+  </div>
 </template>
 
 <script>

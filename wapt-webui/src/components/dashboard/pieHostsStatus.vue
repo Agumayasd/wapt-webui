@@ -1,9 +1,9 @@
 <template>
   <div class="colorbg">
-    <p class="center">Status Charts</p>
-
-  <pie-chart :data="data" :colors="['#4e7300', '#ffa600', '#b51414']" ></pie-chart>
-</div>
+    <h4 class="center">Status Charts</h4>
+    <hr/>
+    <pie-chart style="padding:7px;" :data="data" :colors="['#4e7300', '#ffa600', '#b51414']" ></pie-chart>
+  </div>
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default {
       'hostsErrorStateCount',
       'hostsWarnStateCount'
     ]),
-    data () { return [['ok', this.hostsOkStateCount], ['Warn', this.hostsWarnStateCount], ['Error', this.hostsErrorStateCount]] }
+    data () { return [['Ok', this.hostsOkStateCount], ['To-Update', this.hostsWarnStateCount], ['Error', this.hostsErrorStateCount]] }
   }
 }
 </script>
@@ -28,6 +28,9 @@ export default {
   border-radius: 10px;
   /* width: 545px; */
   /* height: 331px; */
+}
+.center {
+    text-align: center;
 }
 
 </style>
