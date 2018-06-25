@@ -24,7 +24,7 @@
       ></b-form-input>
     </b-form-group>
 
-    <b-button class="login-button" type="button" variant="primary" @click="login(credentials)">Login</b-button>
+    <b-button id="loginButton" class="login-button" type="button" variant="primary" @click="login(credentials)">Login</b-button>
   </b-form>
 
   <!--  Display errors under login form -->
@@ -40,11 +40,9 @@
 </template>
 
 <script>
-// import { login } from '@/utils/auth'
-import axios from 'axios'
+import auth from '@/utils/auth'
 
 export default {
-
   data: function () {
     return {
       credentials: {
@@ -54,17 +52,7 @@ export default {
     }
   },
   methods: {
-    login (credentials) {
-      console.log('AUTH')
-      return axios.post(process.env.API_URL + 'v3/login', {
-        params: {
-          user: credentials['username'],
-          password: credentials['password']
-        }
-      })
-        .then((response) => Promise.resolve(response.data))
-        .catch((error) => console.log(error))
-    }
+    login: auth.login
   }
 }
 </script>
