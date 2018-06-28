@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-// axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true
 
 export default {
   // Send a request to the login URL and returned reponse in Promise
