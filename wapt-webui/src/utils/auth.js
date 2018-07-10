@@ -2,7 +2,7 @@ import 'whatwg-fetch'
 import http from '@/utils/http'
 
 export default {
-  // Send a request to the login URL and returned reponse in Promise
+  // Send a request to the login URL to get authentication cookie
   login (credentials) {
     fetch(process.env.API_URL + 'v3/login?user=' + credentials['username'] +
     '&password=' + credentials['password'], {
