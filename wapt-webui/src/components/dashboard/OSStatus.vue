@@ -9,10 +9,10 @@
 <script>
 export default {
   data () {
-  return {
-    chartColors: ['#01C3CC', '#0C83D1', '#135ED4']
-  }
-},
+    return {
+      chartColors: ['#01C3CC', '#0C83D1', '#135ED4']
+    }
+  },
   methods: {
     dataOS () {
       var windowsVersion = { 'Win7': '6.1',
