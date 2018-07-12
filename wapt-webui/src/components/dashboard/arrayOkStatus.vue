@@ -1,21 +1,19 @@
 <template>
   <div class="colorbg">
     <h4 class="center"> OK !</h4>
-
-  <!-- <pie-chart :data="data" :colors="['#4e7300', '#ffa600', '#b51414']" :discrete="true"></pie-chart> -->
-  <b-table show-empty
-           striped
-           hover
-           stacked="md"
-           :items="data"
-           :fields="fields"
-           :current-page="currentPage"
-           :per-page="perPage"
-           :filter="filter"
-           :sort-by.sync="sortBy"
-           :sort-desc.sync="sortDesc"
-           :sort-direction="sortDirection"
-  ></b-table>
+    <b-table show-empty
+             striped
+             hover
+             stacked="md"
+             :items="data"
+             :fields="fields"
+             :current-page="currentPage"
+             :per-page="perPage"
+             :filter="filter"
+             :sort-by.sync="sortBy"
+             :sort-desc.sync="sortDesc"
+             :sort-direction="sortDirection"
+    ></b-table>
 
 </div>
 </template>
@@ -32,7 +30,7 @@ export default {
         { key: 'last_seen_on',
           label: 'Last Seen',
           'class': 'text-center' },
-        { key: 'reachable',
+        { key: 'Reachable',
           label: 'reachable' }
       ],
       currentPage: 1,
@@ -46,9 +44,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'hostsOkState',
-      'hostsErrorState',
-      'hostsWarnState'
+      'hostsOkState'
     ]),
     data () { return this.hostsOkState }
   }
