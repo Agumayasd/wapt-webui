@@ -2,7 +2,7 @@
   <div class="colorbg">
     <h4 class="center">Os Inventory List</h4>
   <hr/>
-    <pie-chart style="padding:7px;" :data=dataOS()  :colors="chartColors"></pie-chart>
+    <pie-chart style="padding:7px;" :data=dataOS(windowsVersion)  :colors="chartColors"></pie-chart>
   </div>
 </template>
 
@@ -10,18 +10,16 @@
 export default {
   data () {
     return {
-      chartColors: ['#01C3CC', '#0C83D1', '#135ED4']
+      chartColors: ['#009FEF', '#0C83D1', '#135ED4'],
+      windowsVersion: { 'Win7': '6.1', 'Win8': '6.3','Win10': '10.0'}
     }
   },
   methods: {
-    dataOS () {
-      var windowsVersion = { 'Win7': '6.1',
-        'Win8': '6.3',
-        'Win10': '10.0'}
+    dataOS (payload) {
       var arrayOSRepartition = []
-      for (var name in windowsVersion) {
+      for (var name in payload) {
         var localArray = []
-        var OsNumber = windowsVersion[name]
+        var OsNumber = payload[name]
         var osCount = this.$store.state.Wapt.waptState.filter(computer => computer.os_version.startsWith(OsNumber)).length
         localArray.push(name)
         localArray.push(osCount)
