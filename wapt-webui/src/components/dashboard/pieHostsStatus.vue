@@ -2,7 +2,7 @@
   <div class="colorbg">
     <h4 class="center">Status Charts</h4>
     <hr/>
-    <pie-chart style="padding:7px;" :data="data" :colors="['#4e7300', '#ffa600', '#b51414']" ></pie-chart>
+    <pie-chart style="padding:7px;" :data="data" :colors="['#4EC500', '#ffa600', '#b51414']" ></pie-chart>
   </div>
 </template>
 
