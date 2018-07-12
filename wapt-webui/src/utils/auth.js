@@ -16,5 +16,24 @@ export default {
       .catch((error) => {
         return error
       })
+  },
+  checkAuthStatus () {
+    fetch(process.env.API_URL + 'v1/usage_statistics', {
+      credentials: 'include'
+    })
+      .then((response) => {
+        if (response.status === 401 || response.status === 403) {
+          console.log('HEY')
+          return false
+        } else {
+          console.log(response.status)
+          console.log('OK next')
+          return 'authenticated'
+        }
+      })
+      .catch((error) => {
+        console.log('ERROR')
+        return error
+      })
   }
 }
