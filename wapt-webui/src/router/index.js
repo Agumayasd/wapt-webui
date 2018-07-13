@@ -35,21 +35,19 @@ router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    await auth.checkAuthStatus().then((e) => {
-      console.log(e)
-      return true
-    })
+    let authenticated = await auth.authenticated()
+    console.log(authenticated)
     // console.log('a -> ' + a)
-    // if (a === true) {
-    //   console.log('passed')
-    //   next()
-    // } else {
-    //   console.log('blocked')
-    //   next({
-    //     path: '/login',
-    //     query: { redirect: to.fullPath }
-    //   })
-    // }
+    if (authenticated) {
+      console.log('passed')
+      next()
+    } else {
+      console.log('blocked')
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    }
   } else {
     next()
   }

@@ -17,23 +17,21 @@ export default {
         return error
       })
   },
-  checkAuthStatus () {
-    fetch(process.env.API_URL + 'v1/usage_statistics', {
+  authenticated () {
+    let status = fetch(process.env.API_URL + 'v1/usage_statistics', {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
       credentials: 'include'
+    }).then((response) => {
+      if (response.status === 401 || response.status === 403) {
+        return false
+      } else {
+        return true
+      }
+    }).catch((error) => {
+      return error
     })
-      .then((response) => {
-        if (response.status === 401 || response.status === 403) {
-          console.log('HEY')
-          return false
-        } else {
-          console.log(response.status)
-          console.log('OK next')
-          return 'authenticated'
-        }
-      })
-      .catch((error) => {
-        console.log('ERROR')
-        return error
-      })
+    return status
   }
 }
