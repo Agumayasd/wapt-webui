@@ -19,9 +19,6 @@ export default {
   },
   authenticated () {
     let status = fetch(process.env.API_URL + 'v1/usage_statistics', {
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
       credentials: 'include'
     }).then((response) => {
       if (response.status === 401 || response.status === 403) {
