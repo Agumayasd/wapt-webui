@@ -136,13 +136,12 @@
 * This component display host inventory (table) with
 * their name, status and last update date
 **/
-import { HTTP } from '@/utils/http'
+import { mapState } from 'vuex'
 import ModalStatusDetails from '@/components/modals/ModalStatusDetails'
 
 export default {
   data () {
     return {
-      items: [],
       fields: [
         { key: 'computer_name',
           label: 'Computer name',
@@ -172,12 +171,7 @@ export default {
     ModalStatusDetails
   },
   mounted () {
-    // do something after mounting vue instance
-    HTTP.get('v1/hosts')
-      .then(response => {
-        // JSON responses are automatically parsed.
-        this.items = response.data.result
-      })
+    this.$store.dispatch('LOAD_WAPT_JSON')
   },
   computed: {
     sortOptions () {
@@ -185,7 +179,10 @@ export default {
       return this.fields
         .filter(f => f.sortable)
         .map(f => { return { text: f.label, value: f.key } })
-    }
+    },
+    ...mapState({
+      items: state => state.Wapt.waptState
+    })
   },
   methods: {
     showModalStatusDetails (item, badge) {
