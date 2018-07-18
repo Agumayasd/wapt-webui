@@ -32,7 +32,7 @@ export default {
         { key: 'last_seen_on',
           label: 'Last Seen',
           'class': 'text-center' },
-        { key: 'reachable',
+        { key: 'Reachable',
           label: 'reachable' }
       ],
       currentPage: 1,
@@ -46,8 +46,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'hostsOkState',
-      'hostsErrorState',
       'hostsWarnState'
     ]),
     data () { return this.hostsWarnState }

@@ -1,6 +1,4 @@
 import { HTTP } from '@/utils/http'
-// initial state
-// shape: [{ id, quantity }]
 const state = {
   waptState: []
 }

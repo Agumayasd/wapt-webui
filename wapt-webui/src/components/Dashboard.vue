@@ -1,6 +1,7 @@
 <template>
-  <b-container>
-    <b-row class="justify-content-md-center">
+  <b-container fluid>
+    <br/>
+    <b-row align-v="center">
       <b-col>
         <pieHostsStatus></pieHostsStatus>
       </b-col>
@@ -9,7 +10,7 @@
       </b-col>
     </b-row>
     <br>
-    <b-row class="justify-content-md-center">
+    <b-row align-v="center">
       <b-col>
         <arrayWarnStatus></arrayWarnStatus>
       </b-col>
@@ -17,7 +18,7 @@
         <arrayOkStatus></arrayOkStatus>
       </b-col>
     </b-row>
-    <b-row class="justify-content-md-center">
+    <b-row align-v="center">
       <b-col>
         <arrayErrorStatus></arrayErrorStatus>
 

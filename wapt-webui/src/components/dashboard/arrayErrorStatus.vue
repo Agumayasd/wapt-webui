@@ -1,6 +1,5 @@
 <template>
   <div class="colorbg">
-  <!-- <pie-chart :data="data" :colors="['#4e7300', '#ffa600', '#b51414']" :discrete="true"></pie-chart> -->
   <h4 class="center"> Error</h4>
 
   <b-table show-empty
@@ -34,7 +33,7 @@ export default {
           label: 'Last Seen',
           'class': 'text-center' },
         { key: 'reachable',
-          label: 'reachable' }
+          label: 'Reachable' }
       ],
       currentPage: 1,
       perPage: 5,
@@ -47,9 +46,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'hostsOkState',
-      'hostsErrorState',
-      'hostsWarnState'
+      'hostsErrorState'
     ]),
     data () { return this.hostsErrorState }
   }

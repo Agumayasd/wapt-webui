@@ -1,22 +1,31 @@
 <template>
   <div class="colorbg">
-    <p class="center">Os Inventory List</p>
-  <pie-chart :data="[['win7', Win7Count()], ['win8', Win8Count()], ['win10', Win10Count()]]" :colors="['#01C3CC', '#0C83D1', '#135ED4']"></pie-chart>
-
-</div>
+    <h4 class="center">Os Inventory List</h4>
+  <hr/>
+    <pie-chart style="padding:7px;" :data=dataOS(windowsVersion)  :colors="chartColors"></pie-chart>
+  </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      chartColors: ['#009FEF', '#0C83D1', '#135ED4'],
+      windowsVersion: { 'Win7': '6.1', 'Win8': '6.3','Win10': '10.0'}
+    }
+  },
   methods: {
-    Win7Count () {
-      return this.$store.state.Wapt.waptState.filter(computer => computer.os_version.startsWith('6.1')).length
-    },
-    Win8Count () {
-      return this.$store.state.Wapt.waptState.filter(computer => computer.os_version.startsWith('6.3')).length
-    },
-    Win10Count () {
-      return this.$store.state.Wapt.waptState.filter(computer => computer.os_version.startsWith('10.0')).length
+    dataOS (payload) {
+      var arrayOSRepartition = []
+      for (var name in payload) {
+        var localArray = []
+        var OsNumber = payload[name]
+        var osCount = this.$store.state.Wapt.waptState.filter(computer => computer.os_version.startsWith(OsNumber)).length
+        localArray.push(name)
+        localArray.push(osCount)
+        arrayOSRepartition.push(localArray)
+      }
+      return arrayOSRepartition
     }
   }
 }
@@ -27,8 +36,6 @@ export default {
 .colorbg {
   background-color: lightgray;
   border-radius: 10px;
-  /* width: 545px; */
-  /* height: 331px; */
 }
 
 .center {
