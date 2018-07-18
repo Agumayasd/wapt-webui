@@ -36,8 +36,6 @@ router.beforeEach(async (to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     let authenticated = await auth.authenticated()
-    console.log(authenticated)
-    // console.log('a -> ' + a)
     if (authenticated) {
       console.log('passed')
       next()
