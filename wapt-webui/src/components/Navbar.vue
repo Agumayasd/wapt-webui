@@ -1,6 +1,6 @@
 <template>
 <b-navbar toggleable type="light" variant="light">
-  <b-navbar-brand to="/Dashboard">
+  <b-navbar-brand to="/">
     <img src="../assets/logo_wwui.png" class="d-inline-block align-top" alt="BV">
     Wapt Webui
   </b-navbar-brand>

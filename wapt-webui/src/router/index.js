@@ -11,7 +11,7 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/dashboard',
+      path: '/',
       name: 'Dashboard',
       component: Dashboard,
       meta: {requiresAuth: true}
