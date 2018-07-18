@@ -1,16 +1,22 @@
-import { HTTP } from '@/utils/http'
+import http from '@/utils/http'
+import 'whatwg-fetch'
+
 const state = {
   waptState: []
 }
 
 const actions = {
-
   LOAD_WAPT_JSON: function ({ commit }) {
-    HTTP.get('v1/hosts').then((response) => {
-      commit('STORE_WAPT', { list: response.data.result })
-    }, (err) => {
-      console.log(err)
+    fetch(process.env.API_URL + 'v1/hosts', {
+      credentials: 'include'
     })
+      .then(http.checkStatus)
+      .then(http.parseJSON)
+      .then((response) => {
+        commit('STORE_WAPT', { list: response.result })
+      }, (err) => {
+        console.log(err)
+      })
   }
 }
 
