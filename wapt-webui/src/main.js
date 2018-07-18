@@ -9,6 +9,7 @@ import navbar from './components/Navbar'
 import VueChartkick from 'vue-chartkick'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Chart from 'chart.js'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
