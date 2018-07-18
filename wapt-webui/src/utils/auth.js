@@ -1,5 +1,6 @@
 import 'whatwg-fetch'
 import http from '@/utils/http'
+import router from '@/router'
 
 export default {
   // Send a request to the login URL to get authentication cookie
@@ -11,7 +12,7 @@ export default {
       .then(http.checkStatus)
       .then(http.parseJSON)
       .then((data) => {
-        return data
+        router.push('/')
       })
       .catch((error) => {
         return error
