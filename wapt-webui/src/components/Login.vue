@@ -49,6 +49,7 @@
 
 <script>
 import auth from '@/utils/auth'
+import router from '@/router'
 
 export default {
   data: function () {
@@ -56,11 +57,20 @@ export default {
       credentials: {
         username: '',
         password: ''
-      }
+      },
+      errors: ''
     }
   },
   methods: {
-    login: auth.login
+    async login (credentials) {
+      try {
+        var z = await auth.login(credentials)
+        router.push('/')
+      } catch (e) {
+        console.log(e.response.msg)
+        this.errors = e.response.msg
+      }
+    }
   }
 }
 </script>

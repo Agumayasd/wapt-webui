@@ -10,5 +10,14 @@ export default {
   },
   parseJSON (response) {
     return response.json()
+  },
+  checkApiResponse (response) {
+    if (response.success === 'true') {
+      return response
+    } else {
+      let error = new Error(response.msg)
+      error.response = response
+      throw error
+    }
   }
 }

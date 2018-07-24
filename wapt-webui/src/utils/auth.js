@@ -1,21 +1,22 @@
 import 'whatwg-fetch'
 import http from '@/utils/http'
-import router from '@/router'
+// import router from '@/router'
 
 export default {
   // Send a request to the login URL to get authentication cookie
   login (credentials) {
-    fetch(process.env.API_URL + 'v3/login?user=' + credentials['username'] +
+    return fetch(process.env.API_URL + 'v3/login?user=' + credentials['username'] +
     '&password=' + credentials['password'], {
       credentials: 'include'
     })
       .then(http.checkStatus)
       .then(http.parseJSON)
-      .then((data) => {
-        router.push('/')
+      .then(http.checkApiResponse)
+      .then((response) => {
+        return response
       })
       .catch((error) => {
-        return error
+        throw error
       })
   },
   authenticated () {
