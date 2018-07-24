@@ -37,10 +37,8 @@ router.beforeEach(async (to, from, next) => {
     // if not, redirect to login page.
     let authenticated = await auth.authenticated()
     if (authenticated) {
-      console.log('passed')
       next()
     } else {
-      console.log('blocked')
       next({
         path: '/login',
         query: { redirect: to.fullPath }
