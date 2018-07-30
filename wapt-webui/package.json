@@ -1,8 +1,9 @@
 {
   "name": "wapt-webui",
-  "version": "1.0.0",
-  "description": "A Vue.js project",
+  "version": "0.1.0",
+  "description": "A Vue.js console for WAPT",
   "author": "Aguay <baraise.valentin@gmail.com>",
+  "contributor": "Tim <tim@clerc.im>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
