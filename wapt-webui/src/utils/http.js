@@ -12,7 +12,7 @@ export default {
     return response.json()
   },
   checkApiResponse (response) {
-    if (response.success === 'true') {
+    if (response.success === true) {
       return response
     } else {
       let error = new Error(response.msg)
