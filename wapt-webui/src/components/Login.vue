@@ -64,7 +64,7 @@ export default {
   methods: {
     async login (credentials) {
       try {
-        var z = await auth.login(credentials)
+        await auth.login(credentials)
         router.push('/')
       } catch (e) {
         console.log(e.response.msg)
