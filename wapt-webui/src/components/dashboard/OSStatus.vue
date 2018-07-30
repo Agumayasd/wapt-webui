@@ -11,7 +11,7 @@ export default {
   data () {
     return {
       chartColors: ['#009FEF', '#0C83D1', '#135ED4'],
-      windowsVersion: { 'Win7': '6.1', 'Win8': '6.3','Win10': '10.0'}
+      windowsVersion: {'Win7': '6.1', 'Win8': '6.3', 'Win10': '10.0'}
     }
   },
   methods: {
