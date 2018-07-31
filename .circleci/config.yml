@@ -20,7 +20,7 @@ jobs:
         - dev-mayasd
 
     steps:
-      - checkout
+      - checkout:
           path: ~/wapt-webui
 
       # Download and cache dependencies
