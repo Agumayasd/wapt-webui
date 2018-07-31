@@ -60,25 +60,50 @@ find . -type d -exec chmod 0500 {} \;
 # Configuration
 
 ## URL serveur WAPT
-Pour spécifier le serveur WAPT à utiliser il faut modifier le fichier **index.js** comme ci-dessous  (**attention à bien spécifier le / à la fin de l'URL**) :
+Pour spécifier le serveur WAPT à utiliser il faut modifier le fichier **index.js** comme ci-dessous  (**attention à ne spécifier que le domaine**) :
 
 ``` shell
-URL="https://wapt.mydomain.com/"
+URL="https://wapt.mydomain.com"
 sed -i "s#WAPT_SERVER_URL#$URL#g" /var/www/wapt-webui/static/js/app.*.js
 ```
 
 ## NGINX / Apache2
 
+### Configuration
+Il faut modifier la configuration de votre virtualhost (Apache2 ou Nginx) pour permettre l'utilisation de l'API Wapt par Javascript. Voir les sections **CORS** et **Basic-auth** ci-dessous.
+
 ### CORS
+
+#### NGINX
+
+```
+    # CORS wapt-webui
+    add_header 'Access-Control-Allow-Origin' "$http_origin" always;
+    add_header 'Access-Control-Allow-Credentials' 'true' always;
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+    add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With' always;
+    # required to be able to read Authorization header in frontend
+    add_header 'Access-Control-Expose-Headers' 'Authorization, Authentication' always;
+    
+    # Disable WWW-Authenticate for wapt-webui
+    proxy_hide_header 'WWW-Authenticate';
+```
+
+#### Apache2
 
 ### Basic Auth
 Il est nécessaire de désactiver l'en-tête HTTP  **WWW-Authenticate** pour éviter que les navigateurs affiche une fenêtre d'authentification basique. Cette solution n'est pas conforme avec les standards w3  (401 Unauthorized) mais pour le moment nous n'en avons pas d'autres.
 
-### NGINX
+#### NGINX
 Pour NGINX il est nécessaire d'ajouter cette ligne dans la configuration du virtualhost :
 
 ```
 proxy_hide_header 'WWW-Authenticate';
 ```
+
+#### Apache2
+
+
+
 # Contact
 Vous pouvez nous contacter par mails: tim@clerc.im ou valentin@baraise.fr
