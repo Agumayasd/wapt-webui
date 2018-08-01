@@ -1,3 +1,4 @@
+![Imgur](https://i.imgur.com/nCB07AG.png) 
 
 # WAPT-webui
 
@@ -36,7 +37,7 @@ WAPT-webui est compatible avec Google Chrome et Firefox. Nous n'avons pas effect
 
 # Installation
 
-Télécharger la dernière version du projet 
+Télécharger la dernière version du projet
 
 ```shell
 # Créer un dossier pour le virtualhost
@@ -84,7 +85,7 @@ Il faut modifier la configuration de votre virtualhost (Apache2 ou Nginx) pour p
     add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With' always;
     # required to be able to read Authorization header in frontend
     add_header 'Access-Control-Expose-Headers' 'Authorization, Authentication' always;
-    
+
     # Disable WWW-Authenticate for wapt-webui
     proxy_hide_header 'WWW-Authenticate';
 ```
