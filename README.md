@@ -90,6 +90,9 @@ Il faut modifier la configuration de votre virtualhost (Apache2 ou Nginx) pour p
 ```
 
 #### Apache2
+Nous n'avons pas fait de test sur apache2 donc si vous rencontrez des problèmes vous pouvez ouvrir une issue.
+
+Si vous avez une configuration fonctionnelle merci de contribuer :)
 
 ### Basic Auth
 Il est nécessaire de désactiver l'en-tête HTTP  **WWW-Authenticate** pour éviter que les navigateurs affiche une fenêtre d'authentification basique. Cette solution n'est pas conforme avec les standards w3  (401 Unauthorized) mais pour le moment nous n'en avons pas d'autres.
@@ -102,8 +105,9 @@ proxy_hide_header 'WWW-Authenticate';
 ```
 
 #### Apache2
+Nous n'avons pas fait de test sur apache2 donc si vous rencontrez des problèmes vous pouvez ouvrir une issue.
 
-
+Si vous avez une configuration fonctionnelle merci de contribuer :)
 
 # Contact
 Vous pouvez nous contacter par mails: tim@clerc.im ou valentin@baraise.fr
