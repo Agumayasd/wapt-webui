@@ -1,15 +1,52 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import auth from '@/utils/auth'
+import Dashboard from '@/components/Dashboard'
+import Hosts from '@/components/Hosts'
+import Login from '@/components/Login'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Dashboard',
+      component: Dashboard,
+      meta: {requiresAuth: true}
+    },
+    {
+      path: '/hosts',
+      name: 'Hosts',
+      component: Hosts,
+      meta: {requiresAuth: true}
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
   ]
 })
+
+router.beforeEach(async (to, from, next) => {
+  // Check if route require auth
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    let authenticated = await auth.authenticated()
+    if (authenticated) {
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    }
+  } else {
+    next()
+  }
+})
+
+export default router
