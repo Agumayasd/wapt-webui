@@ -48,7 +48,7 @@ mkdir -m 0700 /var/www/wapt-webui
 chown www-data: /var/www/wapt-webui
 
 # Télécharger la dernière version du projet
-wget -O /var/www/wapt-webui/wapt-webui.tar.gz ....
+wget -O /var/www/wapt-webui/wapt-webui.tar.gz https://github.com/Agumayasd/wapt-webui/releases/download/0.1.0/wapt-webui-0.1.0.tar.gz
 
 # Décompresser l'archive
 cd /var/www/wapt-webui
