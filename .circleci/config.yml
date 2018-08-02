@@ -14,13 +14,22 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
 
+<<<<<<< HEAD
     working_directory: ~/wapt-webui
+=======
+    working_directory: ~/wapt-webui/wapt-webui
+>>>>>>> dev-mayasd
     branches:
       only:
         - dev-mayasd
 
     steps:
+<<<<<<< HEAD
       - checkout
+=======
+      - checkout:
+          path: ~/wapt-webui
+>>>>>>> dev-mayasd
 
       # Download and cache dependencies
       - restore_cache:
