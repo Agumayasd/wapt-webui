@@ -52,21 +52,21 @@ describe('Hosts', () => {
   })
 
   it('should render table data with computer name', () => {
-    const wrapper = shallowMount(Hosts, {store, localVue})
+    const wrapper = mount(Hosts, {store, localVue})
 
     const text = getTdTableText(wrapper.findAll('td'), 0)
     expect(text).toEqual('computer55')
   })
 
   it('should render table data with host status', () => {
-    const wrapper = shallowMount(Hosts, {store, localVue})
+    const wrapper = mount(Hosts, {store, localVue})
 
     const text = getTdTableText(wrapper.findAll('td'), 1)
     expect(text).toEqual('ERROR')
   })
 
   it('should render table data with last update status in local time format', () => {
-    const wrapper = shallowMount(Hosts, {store, localVue})
+    const wrapper = mount(Hosts, {store, localVue})
 
     const text = getTdTableText(wrapper.findAll('td'), 2)
     expect(text).toEqual('2018-5-18 15:32:42')
@@ -101,7 +101,7 @@ describe('Hosts', () => {
     // Stub ModalStatusDetails component
     const stubs = ['b-modal']
     const showModalStatusDetailsStub = jest.fn();
-    const wrapper = shallowMount(Hosts, {
+    const wrapper = mount(Hosts, {
       store,
       localVue,
       stubs: stubs,
